@@ -18,6 +18,12 @@ class OlxSpider(scrapy.Spider):
         for page in range(2, 304):
             urls.append('https://quito.olx.com.ec/coches-cat-378-p-{}'.format(page))
 
+        with open(path_file, 'a+') as file:
+            line = '{};{};{};{};{}\n'.format(
+                'Informacion', 'Localizacion', 'Precio', 'Negociacion', 'Publicacion'
+            )
+            file.write(line)
+
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
 
